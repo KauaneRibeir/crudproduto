@@ -1,5 +1,6 @@
 const prompt= require ("prompt-sync")()
 const produtos = []
+const validarIndice = (indice) => indice >= 0 && indice < produtos.length;
 
 const modelo = ()=>{
 const nome = prompt("Digite o nome do produto: ")
@@ -38,34 +39,30 @@ return true
 }
 };
 
-const atualizar=() =>{
+const atualizar = () => {
     if (!listar()) {
-        return
-    }
-const atual= +prompt("Qual indice deseja atualizar? ")
-    if (!validarindice(indice)) {
-console.log("Falha na atualização");
-return
+return;
 }
+const indice =+prompt("Qual o indice que deseja atualizar? ")
+    if (!validarIndice(indice)) {
+console.log("Índice inválido");
+return;
+}
+const produto = modelo(indice);
 if (produto !== undefined) {
-    produtos[indice] =produto
-    console.log("Produto atualizado com sucesso");
+produtos[indice] = produto;
 console.log("Produto atualizado com sucesso");
 } else {
 console.log("Falha na atualização");
 }
-}
-const remover=() =>{
+  };
+const remover = () =>{
 listar()
-modelo()
 const indice = +prompt("Qual indice você deseja remover? ");
-  // percorrendo o array de produtos
-  produtos.forEach((produto, indice) => {
-    if (produto.indice == indice) { // se o ind informado for igual ao ind do registro, é nesse registro que ocorrerá a remoção
-      produtos.splice(indice);
+    if (validarIndice(indice)) { 
+      produtos.splice(indice, 1);
       console.log("Produto removido com sucesso");
     }
-  });
 };
 
 module.exports= {
